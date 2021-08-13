@@ -1,45 +1,59 @@
 <template>
   <div>
+    <p>
+      If you dont have an account please
+      <router-link to="/register">sign up</router-link>
+    </p>
     <input type="text" title="username" v-model="username" />
     <input type="password" title="password" v-model="password" />
-    <button @click="login" :disabled="!canLogin">Sign In</button>
+    <b-button @click.prevent="login" :disabled="!canLogin" variant="success" size="sm">Sign In</b-button>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
+// import {eventBus} from "../event"
 
 export default {
   name: "HelloWorld",
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
     };
   },
-  computed:{
-    ...mapGetters(["token"]),
-    canLogin(){
-      return this.username  && this.password;
-    }
+  computed: {
+    ...mapGetters(["token","public_id"]),
+    canLogin() {
+      return this.username && this.password;
+    },
   },
   methods: {
-    login(){
-      this.$store.dispatch("setToken",this.makeJSON());
-      this.$router.push({
-        name: "profile",
-        params:{
-          username: this.username
-        }
-      });
-    },
-    makeJSON(){
-      const user = {
-        "username" : this.username,
-        "password" : this.password
+    async login() {
+      await this.$store.dispatch("setToken", this.makeJSON());
+      if (this.token) {
+        console.log("if içi");
+        // eventBus.$emit("login",this.token);
+        this.$router.push({
+          name: "profile",
+          params: {
+            public_id: this.public_id
+          }
+        });
       }
+      else{
+        this.username = "";
+        this.password = "";
+        alert("Wrong username or password. Try again later.");
+      }
+    },
+    makeJSON() {
+      const user = {
+        username: this.username,
+        password: this.password,
+      };
       return user;
-    }
+    },
   },
 };
 </script>
