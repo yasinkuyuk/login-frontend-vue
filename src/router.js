@@ -17,19 +17,57 @@ export const router = new VueRouter({
         {
             path: "/login",
             name: "login",
-            component: Login
+            component: Login,
+            meta:{
+                requiresNotAuth: true
+            }
         },
         {
             path: "/register",
             name: "register",
-            component: Register
+            component: Register,
+            meta:{
+                requiresNotAuth: true
+            }
         },
         // set another path before params path
         {
             path: "/profile/:public_id",
             name: "profile",
-            component: Profile
+            component: Profile,
+            meta: {
+                requiresAuth:true
+            }
         }
     ],
     mode: "history"
 })
+/*eslint-disable*/
+router.beforeEach((to, from, next) => {
+    if (to.meta && to.meta.requiresNotAuth) {
+        if(localStorage.getItem("token")){
+            next({name:"index"})
+        }
+        else{
+            next();
+        }
+    }
+    else{
+        next();
+    }
+});
+
+router.beforeEach((to,from,next) => {
+    if(to.meta && to.meta.requiresAuth) {
+        if(localStorage.getItem("token")){
+            next();
+        }
+        else{
+            next({name:"login"});
+        }
+    }
+    else{
+        next();
+    }
+});
+/*eslint-enable*/

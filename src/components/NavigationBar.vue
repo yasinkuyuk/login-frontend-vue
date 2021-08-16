@@ -8,14 +8,15 @@
 
         <template v-if="token">
           <b-nav-item right>
-            <router-link
+            <router-link v-if="public_id"
               :to="{ name: 'profile', params: { public_id: public_id } }"
               id="router"
               >{{ username }}</router-link
             >
           </b-nav-item>
-                  <b-button variant="danger" size="sm" @click="signout">Sign Out</b-button>
-
+          <b-button variant="danger" size="sm" @click="signout"
+            >Sign Out</b-button
+          >
         </template>
         <template v-else>
           <b-nav-item right>
@@ -36,15 +37,20 @@ import { mapGetters } from "vuex";
 export default {
   name: "NavigationBar",
   computed: {
-    ...mapGetters(["token", "username", "public_id"])
+    ...mapGetters(["username", "public_id", "token"]),
   },
   methods: {
-      signout(){
-          this.$store.dispatch("signOut");
-          this.$router.push({
-              name:"index"
-          });
-      }
-  }
+    signout() {
+      this.$store.dispatch("signOut");
+      this.$router.push({
+        name: "login",
+      });
+    },
+  },
+  beforeCreate() {
+    this.$store.commit("SET_TOKEN", localStorage.getItem("token"));
+    this.$store.commit("SET_USERNAME", localStorage.getItem("username"));
+    this.$store.commit("SET_PUBLIC_ID", localStorage.getItem("public_id"));
+  },
 };
 </script>

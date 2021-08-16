@@ -6,7 +6,13 @@
     </p>
     <input type="text" title="username" v-model="username" />
     <input type="password" title="password" v-model="password" />
-    <b-button @click.prevent="login" :disabled="!canLogin" variant="success" size="sm">Sign In</b-button>
+    <b-button
+      @click.prevent="login"
+      :disabled="!canLogin"
+      variant="success"
+      size="sm"
+      >Sign In</b-button
+    >
   </div>
 </template>
 
@@ -18,33 +24,32 @@ export default {
   name: "HelloWorld",
   data() {
     return {
+      firstRequest: true,
       username: "",
       password: "",
     };
   },
   computed: {
-    ...mapGetters(["token","public_id"]),
+    ...mapGetters(["token", "public_id"]),
     canLogin() {
       return this.username && this.password;
     },
   },
   methods: {
     async login() {
-      await this.$store.dispatch("setToken", this.makeJSON());
-      if (this.token) {
-        console.log("if içi");
-        // eventBus.$emit("login",this.token);
-        this.$router.push({
-          name: "profile",
-          params: {
-            public_id: this.public_id
-          }
-        });
-      }
-      else{
-        this.username = "";
-        this.password = "";
-        alert("Wrong username or password. Try again later.");
+      if (this.firstRequest) {
+        this.$set(this, "firstRequest", false);
+        await this.$store.dispatch("setToken", this.makeJSON());
+        if (this.token) {
+          this.$router.push({
+            name: "index",
+          });
+        } else {
+          this.username = "";
+          this.password = "";
+          alert("Wrong username or password. Try again later.");
+        }
+        this.$set(this, "firstRequest", true);
       }
     },
     makeJSON() {

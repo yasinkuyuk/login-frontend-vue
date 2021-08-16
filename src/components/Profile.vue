@@ -1,7 +1,8 @@
 <template>
-  <div>
-    {{ token }}
+  <b-container>
     <div>
+      <button >test</button>
+      <div v-if="token">
         <input
           type="password"
           v-model="newPassword"
@@ -17,18 +18,33 @@
           v-model="oldPassword"
           placeholder="Type Your Old Password"
         />
-        <b-button variant="success" type="submit" :disabled="!canUpdate" @click="updatePassword" size="sm">
+        <b-button
+          variant="success"
+          type="submit"
+          :disabled="!canUpdate"
+          @click="updatePassword"
+          size="sm"
+        >
           Update Password
         </b-button>
+        <b-button variant="danger" v-b-modal.modal-scoped>
+          <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete User
+        </b-button>
+      </div>
     </div>
-  </div>
+    <DeleteModal />
+  </b-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import DeleteModal from "./DeleteModal.vue";
 
 export default {
   name: "Profile",
+  components: {
+    DeleteModal,
+  },
   data() {
     return {
       oldPassword: "",
@@ -47,17 +63,17 @@ export default {
     },
   },
   methods: {
-    makeJSON(){
-        return {
-            "oldPassword" : this.oldPassword,
-            "newPassword" : this.newPassword
-        }
-    } ,
+    makeJSON() {
+      return {
+        oldPassword: this.oldPassword,
+        newPassword: this.newPassword,
+      };
+    },
     async updatePassword() {
-      await this.$store.dispatch("updatePassword",this.makeJSON());
+      await this.$store.dispatch("updatePassword", this.makeJSON());
       this.$router.push({
-          name:"index"
-      })
+        name: "index",
+      });
     },
   },
 };

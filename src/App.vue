@@ -7,13 +7,15 @@
 </template>
 
 <script>
+// import { mapGetters } from 'vuex';
 import NavigationBar from "./components/NavigationBar.vue"
+// import {eventBus} from "./event"
 
 export default {
   name: 'App',
   components:{
     NavigationBar
-  }
+  },
 }
 </script>
 
