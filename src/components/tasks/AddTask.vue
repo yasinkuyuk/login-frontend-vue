@@ -1,8 +1,9 @@
 <template>
   <b-container>
-    <input type="text" placeholder="Title" v-model="tempTitle" />
-    <input type="text" placeholder="description" v-model="tempDescription" />
-    <!-- <input type="datetime-local" placeholder="Due Date" v-model="date" /> -->
+    <input type="text" placeholder="Title" v-model="title" />
+    <input type="text" placeholder="Description" v-model="description" />
+    <input type="date" placeholder="Due Date" v-model="date" />
+    <input type="time" placeholder="Time" v-model="time" />
     <b-button
       type="submit"
       @click="addtask"
@@ -18,54 +19,46 @@ export default {
   name: "AddTask",
   computed: {
     canAddTask() {
-      return this.tempTitle != "" && this.tempDescription != "";
+      return this.title != "" && this.description != "";
+    },
+    dueDate(){
+      return this.date + "T" + this.time;
     }
   },
   data(){
     return{
-      tempTitle:"",
-      tempDescription:"",
-    //   date:""
+      title:"",
+      description:"",
+      date:"",
+      time:""
     }
   },
   methods: {
-    // getDate() {
-    //   var date = new Date();
-    //   var day = String(date.getDate()).padStart(2, "0");
-    //   var month = String(date.getMonth() + 1).padStart(2, "0");
-    //   var year = date.getFullYear();
-    //   var hour = date.getHours();
-    //   var minute = date.getMinutes();
-    //   var second = date.getSeconds();
-    //   var today =
-    //     day +
-    //     "/" +
-    //     month +
-    //     "/" +
-    //     year +
-    //     " " +
-    //     hour +
-    //     ":" +
-    //     minute +
-    //     ":" +
-    //     second;
-    //   return today;
-    // },
+    getDate() {
+      var tzoffset = new Date().getTimezoneOffset() * 60000;
+      var localISOTime = new Date(Date.now() - tzoffset)
+        .toISOString()
+        .slice(0, -1);
+      const today = localISOTime.substring(0,16);
+      return today;
+    },
     makeTaskItem() {
       const task = {
-        // completedTime: "",
-        title: this.tempTitle,
-        description: this.tempDescription,
-        // dateCreated: this.getDate(),
-        status: true,
-        // dueDate: this.date,
+        title: this.title,
+        description: this.description,
+        dateCreated: this.getDate(),
+        status: false,
+        dueDate: this.dueDate,
       };
       return task;
     },
     addtask() {
       this.$store.dispatch("createTask",this.makeTaskItem());
-    },
+    }
   },
+  mounted(){
+
+  }
 };
 </script>
 
