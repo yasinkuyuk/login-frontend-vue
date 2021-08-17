@@ -18,7 +18,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import {eventBus} from "../event"
 
 export default {
   name: "HelloWorld",
