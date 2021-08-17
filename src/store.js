@@ -85,6 +85,17 @@ export const store = new Vuex.Store({
             } catch (error) {
                 console.log(error);
             }
+        },
+        async createTask({getters},task){
+            try {
+                console.log("title: ", task.title);
+                console.log("description: ", task.description);
+                console.log("status: ", task.status);
+                const response = await axios.post("/todo",task,{headers: getters.header});
+                console.log(response.data);
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 });

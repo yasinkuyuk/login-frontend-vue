@@ -32,6 +32,7 @@
         </b-button>
       </div>
     </div>
+    <AddTask />
     <DeleteModal />
   </b-container>
 </template>
@@ -39,11 +40,13 @@
 <script>
 import { mapGetters } from "vuex";
 import DeleteModal from "./DeleteModal.vue";
+import AddTask from "./AddTask.vue"
 
 export default {
   name: "Profile",
   components: {
     DeleteModal,
+    AddTask
   },
   data() {
     return {
