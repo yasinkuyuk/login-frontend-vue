@@ -1,9 +1,16 @@
 <template>
-    <div> Home Page </div>
+    <div>
+        <TaskList />
+    </div>
 </template>
 
 <script>
+import TaskList from "./tasks/TaskList.vue"
+
 export default {
-    name: "Home"
+    name: "Home",
+    components:{
+        TaskList
+    }
 }
 </script>

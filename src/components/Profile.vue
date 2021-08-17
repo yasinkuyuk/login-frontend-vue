@@ -1,7 +1,6 @@
 <template>
   <b-container>
     <div>
-      <button >test</button>
       <div v-if="token">
         <input
           type="password"
@@ -27,11 +26,12 @@
         >
           Update Password
         </b-button>
-        <b-button variant="danger" v-b-modal.modal-scoped>
+        <b-button variant="danger" size="sm" v-b-modal.modal-scoped>
           <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete User
         </b-button>
       </div>
     </div>
+    <TaskList />
     <AddTask />
     <DeleteModal />
   </b-container>
@@ -40,13 +40,15 @@
 <script>
 import { mapGetters } from "vuex";
 import DeleteModal from "./DeleteModal.vue";
-import AddTask from "./AddTask.vue"
+import AddTask from "./tasks/AddTask.vue";
+import TaskList from "./tasks/TaskList.vue"
 
 export default {
   name: "Profile",
   components: {
     DeleteModal,
-    AddTask
+    AddTask,
+    TaskList
   },
   data() {
     return {

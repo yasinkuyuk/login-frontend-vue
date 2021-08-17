@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
             "x-access-token": "",
         },
         username: "",
-        public_id: ""
+        public_id: "",
+        taskList : [],
     },
     getters: {
         token(state) {
@@ -26,7 +27,13 @@ export const store = new Vuex.Store({
         },
         public_id(state) {
             return state.public_id;
-        }
+        },
+        taskList(state){
+            return state.taskList;
+        },
+        taskListSize(state){
+            return state.taskList.length;
+        },
     },
     mutations: {
         SET_TOKEN(state, token) {
@@ -38,6 +45,9 @@ export const store = new Vuex.Store({
         },
         SET_PUBLIC_ID(state, id) {
             state.public_id = id;
+        },
+        SET_TASK_LIST(state,tasklist){
+            state.taskList = tasklist;
         }
     },
     actions: {
@@ -59,8 +69,6 @@ export const store = new Vuex.Store({
         },
         async updatePassword({ getters }, passwords) {
             try {
-                console.log("oldPassword: ", passwords.oldPassword);
-                console.log("newPassword: ", passwords.newPassword);
                 const data = { "oldPassword": passwords.oldPassword, "newPassword": passwords.newPassword }
                 const response = await axios.put("/user", data, { headers: getters.header });
                 console.log(response.data);
@@ -88,13 +96,38 @@ export const store = new Vuex.Store({
         },
         async createTask({getters},task){
             try {
-                console.log("title: ", task.title);
-                console.log("description: ", task.description);
-                console.log("status: ", task.status);
                 const response = await axios.post("/todo",task,{headers: getters.header});
+                this.dispatch("getUserTasks");
                 console.log(response.data);
             } catch (error) {
                 console.log(error)
+            }
+        },
+        async getAllTasks({commit,getters}){
+            try {
+                const response = await axios.get("/todo",{headers: getters.header});
+                console.log("y:",response.data);
+                commit("SET_TASK_LIST",response.data);
+                localStorage.setItem("taskList",response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async getUserTasks({commit,getters}){
+            try {
+                const response = await axios.get("/todo/getUserTodos",{headers: getters.header});
+                commit("SET_TASK_LIST",response.data);
+                localStorage.setItem("taskList",response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async changeStatus({dispatch,getters},id){
+            try {
+                await axios.put(`/todo/changeStatus`,{id},{ headers: getters.header });
+                dispatch("getUserTasks");
+            } catch (error) {
+                console.log(error);
             }
         }
     }
