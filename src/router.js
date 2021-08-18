@@ -4,6 +4,7 @@ import Login from "./components/Login.vue"
 import Profile from "./components/Profile.vue"
 import Register from "./components/Register.vue"
 import Home from "./components/Home.vue"
+import ProfileTask from "./components/ProfileTasks.vue"
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,14 @@ export const router = new VueRouter({
             component: Register,
             meta:{
                 requiresNotAuth: true
+            }
+        },
+        {
+            path:"/profile/tasks",
+            name:"task",
+            component: ProfileTask,
+            meta: {
+                requiresAuth: true
             }
         },
         // set another path before params path

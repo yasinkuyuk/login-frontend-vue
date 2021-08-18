@@ -15,8 +15,8 @@
           <td>
             <b-dropdown-item-button
               default="unchecked"
-              @click="changeStatus(taskItem.id)"
               v-if="editFlag"
+              @click="showModal(taskItem.id)"
               ><b-icon icon="x-circle"></b-icon
             ></b-dropdown-item-button>
           </td>
@@ -30,8 +30,14 @@
 </template>
 
 <script>
+import { eventBus } from "../../event";
 export default {
   name: "UncompletedTasks",
+  data() {
+    return {
+      editedID: null,
+    };
+  },
   computed: {
     editFlag() {
       if (this.$route.name === "index") {
@@ -47,8 +53,11 @@ export default {
     },
   },
   methods: {
-    async changeStatus(id) {
-      await this.$store.dispatch("changeStatus", id);
+    async changeStatus(functionality) {
+      if (functionality === "change") {
+        await this.$store.dispatch("changeStatus", this.editedID);
+        this.editedID = null;
+      }
     },
     getStringFormatOfDate(date) {
       var day = date.substring(8, 10);
@@ -60,6 +69,16 @@ export default {
         day + "/" + month + "/" + year + " " + hour + ":" + minute;
       return arrangedDate;
     },
+    showModal(id) {
+      this.$bvModal.show("modal-scoped");
+      this.$set(this, "editedID", id);
+    },
+  },
+  mounted() {
+    eventBus.$on("sendSignal", this.changeStatus);
+  },
+  beforeDestroy() {
+    eventBus.$off("sendSignal", this.changeStatus);
   },
 };
 </script>

@@ -1,7 +1,8 @@
 <template>
   <b-container>
     <div>
-      <div v-if="token">
+      <div>
+        <h3>Change Password</h3>
         <input
           type="password"
           v-model="newPassword"
@@ -31,30 +32,31 @@
         </b-button>
       </div>
     </div>
-    <TaskList />
-    <AddTask />
-    <DeleteModal />
+    <AlertModal :modalContent="modalContent" />
   </b-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import DeleteModal from "./DeleteModal.vue";
-import AddTask from "./tasks/AddTask.vue";
-import TaskList from "./tasks/TaskList.vue"
+import { eventBus } from "../event";
+import AlertModal from "./AlertModal.vue";
 
 export default {
   name: "Profile",
   components: {
-    DeleteModal,
-    AddTask,
-    TaskList
+    AlertModal,
   },
   data() {
     return {
       oldPassword: "",
       newPassword: "",
       confirmedPassword: "",
+      modalContent: {
+        functionality: "delete",
+        title: "Be careful !!!",
+        content: "Dou you want to delete the user?",
+        okButton: "Delete User",
+      },
     };
   },
   computed: {
@@ -80,6 +82,18 @@ export default {
         name: "index",
       });
     },
+    async deleteUser(functionality) {
+      if (functionality === "delete") {
+        await this.$store.dispatch("deleteUser");
+        this.$router.push({ name: "index" });
+      }
+    },
+  },
+  mounted() {
+    eventBus.$on("sendSignal", this.deleteUser);
+  },
+  beforeDestroy() {
+    eventBus.$off("sendSignal", this.deleteUser);
   },
 };
 </script>

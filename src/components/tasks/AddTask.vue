@@ -52,8 +52,15 @@ export default {
       };
       return task;
     },
+    resetComponentData(){
+      this.title="";
+      this.description="";
+      this.date="";
+      this.time="";
+    },
     addtask() {
       this.$store.dispatch("createTask",this.makeTaskItem());
+      this.resetComponentData();
     }
   },
   mounted(){

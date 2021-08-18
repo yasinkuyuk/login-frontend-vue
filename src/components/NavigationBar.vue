@@ -8,14 +8,24 @@
 
         <template v-if="token">
           <b-nav-item right>
-            <router-link v-if="public_id"
+            <router-link
+              v-if="public_id"
               :to="{ name: 'profile', params: { public_id: public_id } }"
               id="router"
               >{{ username }}</router-link
             >
           </b-nav-item>
-          <b-button variant="danger" size="sm" @click="signout"
-            >Sign Out</b-button
+           <b-nav-item right>
+            <router-link
+              :to="{ name: 'task'}"
+              id="router"
+              >Add Task</router-link
+            >
+          </b-nav-item>
+          <b-nav-item>
+            <b-button variant="danger" size="sm" @click="signout"
+              >Sign Out</b-button
+            ></b-nav-item
           >
         </template>
         <template v-else>
