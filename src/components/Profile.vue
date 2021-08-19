@@ -27,36 +27,29 @@
         >
           Update Password
         </b-button>
-        <b-button variant="danger" size="sm" v-b-modal.modal-scoped>
+        <b-button variant="danger" size="sm" v-b-modal.deleteModal>
           <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete User
         </b-button>
       </div>
     </div>
-    <AlertModal :modalContent="modalContent" />
+    <DeleteModal />
   </b-container>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { eventBus } from "../event";
-import AlertModal from "./AlertModal.vue";
+import DeleteModal from "./DeleteModal.vue"
 
 export default {
   name: "Profile",
   components: {
-    AlertModal,
+    DeleteModal,
   },
   data() {
     return {
       oldPassword: "",
       newPassword: "",
       confirmedPassword: "",
-      modalContent: {
-        functionality: "delete",
-        title: "Be careful !!!",
-        content: "Dou you want to delete the user?",
-        okButton: "Delete User",
-      },
     };
   },
   computed: {
@@ -82,18 +75,6 @@ export default {
         name: "index",
       });
     },
-    async deleteUser(functionality) {
-      if (functionality === "delete") {
-        await this.$store.dispatch("deleteUser");
-        this.$router.push({ name: "index" });
-      }
-    },
-  },
-  mounted() {
-    eventBus.$on("sendSignal", this.deleteUser);
-  },
-  beforeDestroy() {
-    eventBus.$off("sendSignal", this.deleteUser);
-  },
+  }
 };
 </script>

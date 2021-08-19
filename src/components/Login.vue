@@ -13,17 +13,14 @@
       size="sm"
       >Sign In</b-button
     >
-    <Test />
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import Test from "./Test.vue"
 
 export default {
   name: "HelloWorld",
-  components:{Test},
   data() {
     return {
       firstRequest: true,

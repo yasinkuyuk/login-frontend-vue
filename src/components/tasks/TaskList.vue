@@ -2,24 +2,22 @@
   <b-container>
     <div v-if="taskListSize === 0">There is no task!</div>
     <div v-else>
-      <CompletedTasks :completedTasks="completedTasks"  />
-      <UncompletedTasks :unCompletedTasks="unCompletedTasks"  />
-      <AlertModal :modalContent="modalContent"/>
+      <TaskTable :taskList="completedTasks" tableTitle="Completed" />
+      <TaskTable :taskList="unCompletedTasks" tableTitle="Uncompleted" />
+      <ChangeTaskModal />
     </div>
   </b-container>
 </template>
 <script>
-import CompletedTasks from "./CompletedTasks.vue";
-import UncompletedTasks from "./UncompletedTasks.vue";
-import AlertModal from "../AlertModal.vue"
+import TaskTable from "./TaskTable.vue"
 import { mapGetters } from "vuex";
+import ChangeTaskModal from './changeTaskModal.vue';
 
 export default {
   name: "TaskList",
   components: {
-    CompletedTasks,
-    UncompletedTasks,
-    AlertModal
+    TaskTable,
+    ChangeTaskModal
   },
   computed: {
     ...mapGetters(["taskList", "taskListSize"]),
@@ -29,16 +27,6 @@ export default {
     unCompletedTasks() {
       return this.taskList.filter((element) => element.status === false);
     },
-  },
-  data() {
-    return {
-      modalContent:{
-        functionality:"change",
-        title: "Change Status",
-        content: "Do you want to change 'done status' of the task?",
-        okButton:"Change Status"
-      }
-    }
   },
   beforeCreate() {
     if (this.$route.name === "index") {
