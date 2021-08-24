@@ -106,7 +106,6 @@ export const store = new Vuex.Store({
         async getAllTasks({commit,getters}){
             try {
                 const response = await axios.get("/todo",{headers: getters.header});
-                console.log("y:",response.data);
                 commit("SET_TASK_LIST",response.data);
                 localStorage.setItem("taskList",response.data);
             } catch (error) {

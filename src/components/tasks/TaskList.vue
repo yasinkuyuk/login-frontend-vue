@@ -31,7 +31,6 @@ export default {
   beforeCreate() {
     if (this.$route.name === "index") {
       this.$store.dispatch("getAllTasks");
-      console.log("x")
     } else {
       this.$store.dispatch("getUserTasks");
     }

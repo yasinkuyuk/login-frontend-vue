@@ -21,3 +21,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+tests/unit/Register.spec.js
+tests/unit/NavigationBar.spec.js
+tests/unit/AddTask.spec.js

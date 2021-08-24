@@ -4,7 +4,7 @@
       If you dont have an account please
       <router-link to="/register">sign up</router-link>
     </p>
-    <input type="text" title="username" v-model="username" />
+    <input type="text" title="username" v-model="username" id="x"/>
     <input type="password" title="password" v-model="password" />
     <b-button
       @click.prevent="login"

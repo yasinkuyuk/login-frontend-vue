@@ -10,7 +10,7 @@
       :fields="fields"
       small
     >
-      <template #cell(change)="row">
+      <template #cell(change)="row" class="changeStatus">
         <b-dropdown-item-button
           default="unchecked"
           @click="showModal(row.item.id)"
