@@ -5,13 +5,14 @@
       <router-link to="/login">sign in</router-link>
     </p>
     <input type="text" placeholder="username" v-model="username" />
-    <input type="password" placeholder="password" v-model="password" />
+    <input type="password" placeholder="password" v-model="password" id="password"/>
     <input
       type="password"
       placeholder="confirm your password"
       v-model="confirmPassword"
+      id="confirm"
     />
-    <b-button variant="success" type="submit" :disabled="!buttonCheck" @click="register" size="sm">
+    <b-button variant="success" type="submit" :disabled="!buttonCheck" @click="register" size="sm" >
       Register
     </b-button>
   </div>

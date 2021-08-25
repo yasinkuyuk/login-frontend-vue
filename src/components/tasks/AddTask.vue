@@ -1,9 +1,9 @@
 <template>
   <b-container>
-    <input type="text" placeholder="Title" v-model="title" />
-    <input type="text" placeholder="Description" v-model="description" />
-    <input type="date" placeholder="Due Date" v-model="date" />
-    <input type="time" placeholder="Time" v-model="time" />
+    <input type="text" placeholder="Title" v-model="title" id="title"/>
+    <input type="text" placeholder="Description" v-model="description" id="description"/>
+    <input type="date" placeholder="Due Date" v-model="date" id="date"/>
+    <input type="time" placeholder="Time" v-model="time" id="time"/>
     <b-button
       type="submit"
       @click="addtask"

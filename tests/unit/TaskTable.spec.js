@@ -81,7 +81,7 @@ describe("TaskTable.vue", () => {
         $route: $profileRoute,
       },
     });
-    expect(wrapper.contains("changeStatus")).toBe(true);
+    expect(wrapper.find("b-button-stub")).toBe(true);
   });
 
   //   it("does not render changeStatus button in index", () => {

@@ -11,11 +11,11 @@
       small
     >
       <template #cell(change)="row" class="changeStatus">
-        <b-dropdown-item-button
+        <button
           default="unchecked"
           @click="showModal(row.item.id)"
           ><b-icon icon="x-circle"></b-icon
-        ></b-dropdown-item-button>
+        ></button>
       </template>
       <template #cell(dueDate)="row">
         {{ getStringFormatOfDate(row.item.dueDate) }}
