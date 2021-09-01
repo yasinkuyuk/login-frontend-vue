@@ -2,7 +2,7 @@ import { shallowMount, createLocalVue } from "@vue/test-utils";
 import Vuex from 'vuex'
 import TaskList from "@/components/tasks/TaskList.vue";
 import TaskTable from "@/components/tasks/TaskTable.vue";
-import { BootstrapVue } from 'bootstrap-vue'
+import { BIconJustifyLeft, BootstrapVue } from 'bootstrap-vue'
 
 
 const localVue = createLocalVue();
@@ -13,6 +13,7 @@ localVue.use(BootstrapVue);
 describe("TaskList.vue", () => {
   let getters;
   let store;
+  let actions;
   const taskList = [
     {
       id: 0,
@@ -57,8 +58,13 @@ describe("TaskList.vue", () => {
       taskListSize: () => taskList.length,
     };
 
+    actions = {
+      getAllTasks: jest.fn()
+    }
+
     store = new Vuex.Store({
       getters,
+      actions
     });
   });
 
@@ -83,7 +89,7 @@ describe("TaskList.vue", () => {
             $route
           }
         });
-        expect(wrapper.contains(TaskTable));
+        expect(wrapper.findComponent(TaskTable).exists());
   });
 
   it("distributes completed tasks correctly", ()=>{

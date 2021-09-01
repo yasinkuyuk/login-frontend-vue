@@ -11,7 +11,7 @@ localVue.use(VueRouter);
 describe("Register.vue", () => {
   it("should render input items", () => {
     const wrapper = shallowMount(Register, { localVue });
-    expect(wrapper.contains("input")).toBe(true);
+    expect(wrapper.find("input").exists()).toBe(true);
   });
 
   it("should bind username data and text input", () => {

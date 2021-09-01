@@ -2,12 +2,16 @@
   <div>
     <b-navbar type="dark" variant="dark">
       <b-navbar-nav>
-        <b-nav-item
+        <b-nav-item id="home"
           ><router-link to="/" id="router">Home</router-link></b-nav-item
         >
 
+        <b-nav-item>
+          {{ $t("hello")}}
+        </b-nav-item>
+
         <template v-if="token">
-          <b-nav-item right>
+          <b-nav-item right id="username">
             <router-link
               v-if="public_id"
               :to="{ name: 'profile', params: { public_id: public_id } }"
@@ -15,7 +19,7 @@
               >{{ username }}</router-link
             >
           </b-nav-item>
-           <b-nav-item right>
+           <b-nav-item right id="addTask">
             <router-link
               :to="{ name: 'task'}"
               id="router"
@@ -23,13 +27,13 @@
             >
           </b-nav-item>
           <b-nav-item>
-            <b-button variant="danger" size="sm" @click="signout"
+            <b-button variant="danger" size="sm" @click="signout" id="signout"
               >Sign Out</b-button
             ></b-nav-item
           >
         </template>
         <template v-else>
-          <b-nav-item right>
+          <b-nav-item right id="login">
             <router-link to="/login" id="router">Login</router-link>
           </b-nav-item>
           <b-nav-item right>
