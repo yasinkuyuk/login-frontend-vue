@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div v-if="taskListSize === 0">There is no task!</div>
+    <div v-if="taskListSize === 0">{{$t("noTask")}}!</div>
     <div v-else>
       <TaskTable :taskList="completedTasks" tableTitle="Completed" />
       <TaskTable :taskList="unCompletedTasks" tableTitle="Uncompleted" />

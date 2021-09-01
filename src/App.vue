@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <NavigationBar />
-    <img alt="Vue logo" src="./assets/logo.png">
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <router-view :key="$route.path"> </router-view>
   </div>
 </template>

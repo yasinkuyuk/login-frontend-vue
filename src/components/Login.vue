@@ -1,17 +1,17 @@
 <template>
   <div>
     <p>
-      If you dont have an account please
-      <router-link to="/register">sign up</router-link>
+      {{$t("signInSentence")}}
+      <router-link to="/register">{{$t("signUp")}}</router-link>
     </p>
-    <input type="text" title="username" v-model="username" id="x"/>
-    <input type="password" title="password" v-model="password" />
+    <input type="text" :placeholder="$t('username')" v-model="username" id="x"/>
+    <input type="password" :placeholder="$t('password')" v-model="password" />
     <b-button
       @click.prevent="login"
       :disabled="!canLogin"
       variant="success"
       size="sm"
-      >Sign In</b-button
+      >{{$t("signIn")}}</b-button
     >
   </div>
 </template>

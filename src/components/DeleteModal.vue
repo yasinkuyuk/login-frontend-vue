@@ -1,13 +1,13 @@
 <template>
   <b-container>
-    <b-modal id="deleteModal" title="Delete User">
-        <p>Do you want to delete user "{{username}}"?</p>
+    <b-modal id="deleteModal" :title="$t('deleteUser')">
+        <p>{{$t('deleteUserSentence')}}{{username}}?</p>
       <template #modal-footer="{ ok }">
         <b-button size="sm" variant="warning" @click="cancel(ok)">
-          Cancel
+          {{$t('cancel')}}
         </b-button>
         <b-button size="sm" variant="danger" @click="deleteUser(ok)"
-          >Delete User</b-button
+          >{{$t('deleteUser')}}</b-button
         >
       </template>
     </b-modal>

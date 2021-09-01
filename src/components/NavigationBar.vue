@@ -3,12 +3,8 @@
     <b-navbar type="dark" variant="dark">
       <b-navbar-nav>
         <b-nav-item id="home"
-          ><router-link to="/" id="router">Home</router-link></b-nav-item
+          ><router-link to="/" id="router">{{ $t("home")}}</router-link></b-nav-item
         >
-
-        <b-nav-item>
-          {{ $t("hello")}}
-        </b-nav-item>
 
         <template v-if="token">
           <b-nav-item right id="username">
@@ -23,21 +19,21 @@
             <router-link
               :to="{ name: 'task'}"
               id="router"
-              >Add Task</router-link
+              >{{ $t("myTasks")}}</router-link
             >
           </b-nav-item>
           <b-nav-item>
             <b-button variant="danger" size="sm" @click="signout" id="signout"
-              >Sign Out</b-button
+              >{{ $t("signOut")}}</b-button
             ></b-nav-item
           >
         </template>
         <template v-else>
           <b-nav-item right id="login">
-            <router-link to="/login" id="router">Login</router-link>
+            <router-link to="/login" id="router">{{ $t("signIn")}}</router-link>
           </b-nav-item>
           <b-nav-item right>
-            <router-link to="/register" id="router">Register</router-link>
+            <router-link to="/register" id="router">{{ $t("signUp")}}</router-link>
           </b-nav-item>
         </template>
       </b-navbar-nav>

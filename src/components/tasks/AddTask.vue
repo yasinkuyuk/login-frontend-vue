@@ -1,7 +1,7 @@
 <template>
   <b-container>
-    <input type="text" placeholder="Title" v-model="title" id="title"/>
-    <input type="text" placeholder="Description" v-model="description" id="description"/>
+    <input type="text" :placeholder="$t('title')" v-model="title" id="title"/>
+    <input type="text" :placeholder="$t('description')" v-model="description" id="description"/>
     <input type="date" placeholder="Due Date" v-model="date" id="date"/>
     <input type="time" placeholder="Time" v-model="time" id="time"/>
     <b-button
@@ -9,7 +9,7 @@
       @click="addtask"
       :disabled="!canAddTask"
       variant="success"
-      >Add task
+      >{{$t('addTask')}}
     </b-button>
   </b-container>
 </template>

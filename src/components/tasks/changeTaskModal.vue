@@ -1,13 +1,13 @@
 <template>
   <b-container>
     <b-modal id="changeModal" :title="String(editedID)" >
-      <p>Do you want to change 'done status' of the task?</p>
+      <p>{{$t('changeSentence')}}</p>
       <template #modal-footer="{ ok }">
         <b-button size="sm" variant="warning" @click="cancel(ok)">
-          Cancel
+          {{$t('cancel')}}
         </b-button>
         <b-button size="sm" variant="danger" @click="changeStatus(ok)"
-          >Change Status</b-button
+          >{{$t('changeStatus')}}</b-button
         >
       </template>
     </b-modal>

@@ -2,21 +2,21 @@
   <b-container>
     <div>
       <div>
-        <h3>Change Password</h3>
+        <h3>{{$t("changePassword")}}</h3>
         <input
           type="password"
           v-model="newPassword"
-          placeholder="New Password"
+          :placeholder="$t('newPassword')"
         />
         <input
           type="password"
           v-model="confirmedPassword"
-          placeholder="Confirm Password"
+          :placeholder="$t('confirm')"
         />
         <input
           type="password"
           v-model="oldPassword"
-          placeholder="Type Your Old Password"
+          :placeholder="$t('oldPassword')"
         />
         <b-button
           variant="success"
@@ -25,10 +25,10 @@
           @click="updatePassword"
           size="sm"
         >
-          Update Password
+          {{$t("updatePassword")}}
         </b-button>
         <b-button variant="danger" size="sm" v-b-modal.deleteModal>
-          <b-icon icon="trash-fill" aria-hidden="true"></b-icon> Delete User
+          <b-icon icon="trash-fill" aria-hidden="true"></b-icon> {{$t("deleteUser")}}
         </b-button>
       </div>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h3>{{tableTitle}} Tasks</h3>
+    <h3>{{ $t(`${tableTitle}`) }} {{ $t("tasks") }}</h3>
     <b-table
       class="table-hover"
       id="taskList"
@@ -11,11 +11,9 @@
       small
     >
       <template #cell(change)="row" class="changeStatus">
-        <button
-          default="unchecked"
-          @click="showModal(row.item.id)"
-          ><b-icon icon="x-circle"></b-icon
-        ></button>
+        <button default="unchecked" @click="showModal(row.item.id)">
+          <b-icon icon="x-circle"></b-icon>
+        </button>
       </template>
       <template #cell(dueDate)="row">
         {{ getStringFormatOfDate(row.item.dueDate) }}
@@ -32,7 +30,7 @@
 </template>
 
 <script>
-import {eventBus} from "../../event"
+import { eventBus } from "../../event";
 
 export default {
   name: "TaskTable",
@@ -48,30 +46,29 @@ export default {
     },
     fields() {
       if (this.$route.name === "index") {
+        // return [
+        //   {
+        //     key: this.$t("title"),
+        //   },
+        //   {
+        //     key: this.$t("description"),
+        //   },
+        //   {
+        //     key: this.$t("dueDate"),
+        //   },
+        // ];
         return [
-          {
-            key: "title",
-          },
-          {
-            key: "description",
-          },
-          {
-            key: "dueDate",
-          },
+            {title : {label: this.$t("title") }},
+            {description : {label: this.$t("description") }},
+            {dueDate : {label: this.$t("dueDate") }}
         ];
       }
       return [
-        "change",
-        {
-          key: "title",
-        },
-        {
-          key: "description",
-        },
-        {
-          key: "dueDate",
-        },
-      ];
+            this.$t("change"),
+            {title : {label: this.$t("title") }},
+            {description : {label: this.$t("description") }},
+            {dueDate : {label: this.$t("dueDate") }}
+        ];
     },
   },
   props: {
@@ -79,14 +76,14 @@ export default {
       type: Array,
       default: () => [],
     },
-    tableTitle:{
+    tableTitle: {
       type: String,
-      default:""
-    }
+      default: "",
+    },
   },
   methods: {
     showModal(id) {
-      eventBus.$emit("sendEditedIdToModal",id);
+      eventBus.$emit("sendEditedIdToModal", id);
       this.$bvModal.show("changeModal");
     },
     getStringFormatOfDate(date) {
@@ -99,7 +96,7 @@ export default {
         day + "/" + month + "/" + year + " " + hour + ":" + minute;
       return arrangedDate;
     },
-  }
+  },
 };
 </script>
 
