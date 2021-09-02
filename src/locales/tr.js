@@ -25,6 +25,7 @@ export default {
     oldPassword: "Eski Şifre",
     deleteUserSentence: "Kullanıcıyı silmek istiyor musunuz: ",
     noTask:"Hiçbir görev yok!",
-    completed:"Tamamlanmış",
-    uncompleted:"Tamamlanmamış"
+    Completed:"Tamamlanmış",
+    Uncompleted:"Tamamlanmamış",
+    lang:"Dil"
   }

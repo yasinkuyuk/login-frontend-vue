@@ -21,11 +21,11 @@ export default  {
     changeStatus: "Change Status",
     updatePassword: "Update Password",
     deleteUser: "Delete User",
-    changePassword: "Change Password",
     newPassword: "New Password",
     oldPassword: "Type Your Old Password",
     deleteUserSentence: "Do you want to delete the user: ",
     noTask:"There is no task!",
-    completed:"Completed",
-    uncompleted:"Uncompleted"
+    Completed:"Completed",
+    Uncompleted:"Uncompleted",
+    lang:"Language"
   };

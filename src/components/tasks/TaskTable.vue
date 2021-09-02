@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h3>{{ $t(`${tableTitle}`) }} {{ $t("tasks") }}</h3>
+    <h3>{{ $t(tableTitle) }} {{ $t("tasks") }}</h3>
     <b-table
       class="table-hover"
       id="taskList"
@@ -64,7 +64,7 @@ export default {
         ];
       }
       return [
-            this.$t("change"),
+            {change: {label: this.$t("change")}},
             {title : {label: this.$t("title") }},
             {description : {label: this.$t("description") }},
             {dueDate : {label: this.$t("dueDate") }}

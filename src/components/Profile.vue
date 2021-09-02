@@ -2,7 +2,7 @@
   <b-container>
     <div>
       <div>
-        <h3>{{$t("changePassword")}}</h3>
+        <h3>{{$t("updatePassword")}}</h3>
         <input
           type="password"
           v-model="newPassword"
