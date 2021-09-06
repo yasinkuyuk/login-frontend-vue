@@ -46,17 +46,6 @@ export default {
     },
     fields() {
       if (this.$route.name === "index") {
-        // return [
-        //   {
-        //     key: this.$t("title"),
-        //   },
-        //   {
-        //     key: this.$t("description"),
-        //   },
-        //   {
-        //     key: this.$t("dueDate"),
-        //   },
-        // ];
         return [
             {title : {label: this.$t("title") }},
             {description : {label: this.$t("description") }},

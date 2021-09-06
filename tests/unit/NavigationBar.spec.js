@@ -1,8 +1,11 @@
-import { shallowMount, createLocalVue,mount } from "@vue/test-utils";
+import { shallowMount, createLocalVue } from "@vue/test-utils";
 import NavigationBar from "@/components/NavigationBar.vue";
 import { BootstrapVue } from "bootstrap-vue";
 import Vuex from "vuex";
 import VueRouter from "vue-router";
+import { nextTick } from "vue";
+import { i18n } from "../../src/i18n";
+import { router } from "../../src/router";
 
 const localVue = createLocalVue();
 
@@ -11,8 +14,7 @@ localVue.use(BootstrapVue);
 localVue.use(VueRouter);
 
 describe("NavigationBar.vue", () => {
-  let state, store, getters, mutations,actions;
-
+  let state, store, getters, mutations, actions;
   beforeEach(() => {
     state = {
       token: "",
@@ -33,14 +35,14 @@ describe("NavigationBar.vue", () => {
     };
 
     actions = {
-      signOut: jest.fn()
+      signOut: jest.fn(),
     };
 
     store = new Vuex.Store({
       state,
       mutations,
       getters,
-      actions
+      actions,
     });
   });
 
@@ -48,6 +50,7 @@ describe("NavigationBar.vue", () => {
     const wrapper = shallowMount(NavigationBar, {
       localVue,
       store,
+      i18n
     });
     expect(wrapper.find("b-nav-item-stub").exists()).toBe(true);
   });
@@ -60,6 +63,7 @@ describe("NavigationBar.vue", () => {
     const wrapper = shallowMount(NavigationBar, {
       localVue,
       store,
+      i18n
     });
 
     expect(wrapper.find("b-nav-item-stub[id='addTask']").exists()).toBe(true);
@@ -73,6 +77,7 @@ describe("NavigationBar.vue", () => {
     const wrapper = shallowMount(NavigationBar, {
       localVue,
       store,
+      i18n
     });
 
     expect(wrapper.find("b-nav-item-stub[id='username']").exists()).toBe(true);
@@ -82,6 +87,7 @@ describe("NavigationBar.vue", () => {
     const wrapper = shallowMount(NavigationBar, {
       localVue,
       store,
+      i18n
     });
 
     expect(wrapper.find("b-nav-item-stub[id='addTask']").exists()).toBe(false);
@@ -91,6 +97,7 @@ describe("NavigationBar.vue", () => {
     const wrapper = shallowMount(NavigationBar, {
       localVue,
       store,
+      i18n
     });
 
     expect(wrapper.find("b-nav-item-stub[id='username']").exists()).toBe(false);
@@ -100,6 +107,7 @@ describe("NavigationBar.vue", () => {
     const wrapper = shallowMount(NavigationBar, {
       localVue,
       store,
+      i18n
     });
 
     expect(wrapper.find("b-nav-item-stub[id='login']").exists()).toBe(true);
@@ -113,41 +121,88 @@ describe("NavigationBar.vue", () => {
       localVue,
       store,
       stubs: ["b-nav-item"],
+      i18n
     });
 
     expect(wrapper.find("b-nav-item-stub[id='login']").exists()).toBe(false);
   });
 
-  it("should sign out when button is triggered", ()=>{
-    store.state.token = "test";
-    store.state.username = "test";
-    store.state.public_id = "test";
-    const wrapper = shallowMount(NavigationBar, {
-      localVue,
-      store,
-    });
-
-    const signout = wrapper.find("b-button-stub[id='signout']");
-    signout.trigger("click");
-
-    expect(wrapper.find("b-nav-item-stub[id='login']").exists()).toBe(true);
-  });
-
-  // it("should direct homepage when click home nav item", () => {
-  //   const $route ={name:"index"};
+  // it("should sign out when button is triggered", async () => {
+  //   store.state.token = "test";
   //   const wrapper = shallowMount(NavigationBar, {
   //     localVue,
   //     store,
-  //     mocks:{
-  //       $route
-  //     }
+  //     i18n,
+  //     router
   //   });
 
-  //   // const home = wrapper.find("b-nav-item-stub[id='home']");
-  //   // console.log(wrapper.vm.$route);
-  //   // home.trigger("click");
-  //   const  test = wrapper.find("b-nav-item-stub[id='test']");
-  //   console.log(test);
+  //   const signout = wrapper.find("b-button-stub[id='signout']");
+  //   await signout.trigger("click");
+
+  //   await nextTick();
+  //   console.log(wrapper.html());
+  //   expect(wrapper.find("b-nav-item-stub[id='login']").exists()).toBe(true);
+  // });
+
+  it("should render english when locale selecteed en", async ()=>{
+    const wrapper = shallowMount(NavigationBar, {
+      localVue,
+      i18n,
+      router,
+      store
+    });
+
+    wrapper.vm.$i18n.locale = "en";
+    await nextTick();
+    expect(wrapper.html()).toContain("Home");
+  });
+
+  it("should render turkish when locale selecteed tr", async ()=>{
+    const wrapper = shallowMount(NavigationBar, {
+      localVue,
+      i18n,
+      router,
+      store
+    });
+
+    wrapper.vm.$i18n.locale = "tr";
+    await nextTick();
+
+    console.log(wrapper.html());
+    expect(wrapper.html()).toContain("Anasayfa");
+  });
+
+  // it("should switch language to turkish when it is selected", async ()=>{
+  //   const wrapper = shallowMount(NavigationBar, {
+  //     localVue,
+  //     i18n,
+  //     router,
+  //     store
+  //   });
+
+  //   wrapper.vm.$i18n.locale = "tr";
+  //   await nextTick();
+  //   await wrapper.find("b-dropdown-item-stub[id='en']").trigger("click");
+  //   await nextTick()
+  //   console.log(wrapper.html());
+  //   // expect(wrapper.html()).toContain("Home");
+  // });
+
+  // it("should direct homepage when click home nav item", async () => {
+  //   const wrapper = shallowMount(NavigationBar, {
+  //     localVue,
+  //     store,
+  //     i18n,
+  //     router,
+  //   });
+
+  //   //directing to test page
+  //   wrapper.vm.$router.push({ name: "test" });
+
+  //   await wrapper.find("router-link-stub[id='router']").trigger("click");
+  //   await nextTick();
+
+  //   expect(wrapper.vm.$router.history.current.name).toEqual("index");
   // });
 
   //following tests will be added
