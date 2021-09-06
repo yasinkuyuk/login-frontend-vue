@@ -1,16 +1,23 @@
 <template>
-    <div>
-        <TaskList />
-    </div>
+    <b-container>
+        <TaskCards :taskList="taskList"/>
+    </b-container>
 </template>
 
 <script>
-import TaskList from "./tasks/TaskList.vue"
+import { mapGetters } from 'vuex'
+import TaskCards from "./tasks/TaskCards.vue"
 
 export default {
     name: "Home",
     components:{
-        TaskList
+        TaskCards
+    },
+    computed:{
+        ...mapGetters(["taskList"])
+    },
+    beforeCreate(){
+        this.$store.dispatch("getAllTasks");
     }
 }
 </script>

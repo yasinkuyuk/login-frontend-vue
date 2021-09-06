@@ -5,7 +5,7 @@ import Profile from "./components/Profile.vue"
 import Register from "./components/Register.vue"
 import Home from "./components/Home.vue"
 import ProfileTask from "./components/ProfileTasks.vue"
-import Yk from "./components/Yk.vue"
+import Test from "./components/Test.vue"
 
 Vue.use(VueRouter)
 
@@ -43,9 +43,9 @@ export const router = new VueRouter({
         {
             path:"/test",
             name:"test",
-            component:Yk,
+            component:Test,
             meta:{
-                requiresAuth:true
+                requiresNotAuth:true
             }
         },
         // set another path before params path
