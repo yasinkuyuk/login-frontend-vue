@@ -27,5 +27,15 @@ export default  {
     noTask:"There is no task!",
     Completed:"Completed",
     Uncompleted:"Uncompleted",
-    lang:"Language"
+    lang:"Language",
+    password_length: "Password must have at least ",
+    letters:"letters",
+    password_required:"Password required.",
+    username_length:"Username must have at least ",
+    username_required:"Username required.",
+    password_match:"Passwords must identical.",
+    time:"Time",
+    date_required:"Enter the due date.",
+    title_length:"Title must have at least",
+    descripiton_length:"Description must have at least"
   };

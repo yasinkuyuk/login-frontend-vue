@@ -44,9 +44,9 @@ export const router = new VueRouter({
             path:"/test",
             name:"test",
             component:Test,
-            meta:{
-                requiresNotAuth:true
-            }
+            // meta:{
+            //     requiresNotAuth:true
+            // }
         },
         // set another path before params path
         {

@@ -5,13 +5,21 @@
         :title="task.title"
         :img-src="require('../../assets/done-task.jpeg')"
         img-alt="Image"
+        class="card-hover"
         img-top
       >
         <b-card-text id="completed">
           {{ task.description }}
         </b-card-text>
         <template #footer>
-          <div><b-img-lazy :src="require('../../assets/user.png')" width="20" height="20"/> {{username}}</div>
+          <div>
+            <b-img-lazy
+              :src="require('../../assets/user.png')"
+              width="20"
+              height="20"
+            />
+            {{ username }}
+          </div>
           <small class="text-muted">{{
             getStringFormatOfDate(task.dueDate)
           }}</small>
@@ -20,6 +28,7 @@
     </template>
     <template v-else>
       <b-card
+        class="card-hover"
         :title="task.title"
         :img-src="require('../../assets/in-progress_test.jpeg')"
         img-alt="Image"
@@ -27,7 +36,14 @@
       >
         <b-card-text> {{ task.description }}</b-card-text>
         <template #footer>
-          <div><b-img-lazy :src="require('../../assets/user.png')" width="20" height="20"/> {{username}}</div>
+          <div>
+            <b-img-lazy
+              :src="require('../../assets/user.png')"
+              width="20"
+              height="20"
+            />
+            {{ username }}
+          </div>
           <small class="text-muted">{{ task.dueDate }}</small>
         </template>
       </b-card>
@@ -67,7 +83,7 @@ export default {
       const response = await axios.get(
         `/user/getUsernameById/${this.task.user_id}`
       );
-      this.$set(this,"username",response.data);
+      this.$set(this, "username", response.data);
     } catch (error) {
       console.error(error);
     }
@@ -80,4 +96,11 @@ export default {
   text-decoration: line-through;
   color: gray;
 }
+
+.card-hover:hover {
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+
+        
 </style>

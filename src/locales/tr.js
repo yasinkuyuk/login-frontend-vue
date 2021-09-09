@@ -27,5 +27,15 @@ export default {
     noTask:"Hiçbir görev yok!",
     Completed:"Tamamlanmış",
     Uncompleted:"Tamamlanmamış",
-    lang:"Dil"
+    lang:"Dil",
+    password_length: "Şifre en az",
+    letters:"karaktere sahip olmalı",
+    password_required:"Şifre bış bırakılamaz.",
+    username_length:"Kullanıcı adı en az",
+    username_required:"Kullanıcı Adı boş bırakılamaz.",
+    password_match:"Şifreler aynı olmalı.",
+    time:"Saat",
+    data_required:"Bitiş tarihi giriniz.",
+    title_length:"Başlık en az",
+    descripiton_length:"Açıklama en az"
   }
