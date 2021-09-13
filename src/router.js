@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from "./components/Login.vue"
-import Profile from "./components/Profile.vue"
-import Register from "./components/Register.vue"
-import Home from "./components/Home.vue"
-import ProfileTask from "./components/ProfileTasks.vue"
-import Test from "./components/Test.vue"
+
 
 Vue.use(VueRouter)
 
@@ -14,12 +9,12 @@ export const router = new VueRouter({
         {
             path: "/",
             name: "index",
-            component: Home
+            component: () => import("@/components/Home.vue")
         },
         {
             path: "/login",
             name: "login",
-            component: Login,
+            component: ()=>import("@/components/Login.vue"),
             meta:{
                 requiresNotAuth: true
             }
@@ -27,7 +22,7 @@ export const router = new VueRouter({
         {
             path: "/register",
             name: "register",
-            component: Register,
+            component: ()=>import("@/components/Register.vue"),
             meta:{
                 requiresNotAuth: true
             }
@@ -35,7 +30,7 @@ export const router = new VueRouter({
         {
             path:"/profile/tasks",
             name:"task",
-            component: ProfileTask,
+            component: ()=>import("@/components/ProfileTasks.vue"),
             meta: {
                 requiresAuth: true
             }
@@ -43,7 +38,7 @@ export const router = new VueRouter({
         {
             path:"/test",
             name:"test",
-            component:Test,
+            component:()=>import("@/components/Test.vue"),
             // meta:{
             //     requiresNotAuth:true
             // }
@@ -52,7 +47,7 @@ export const router = new VueRouter({
         {
             path: "/profile/:public_id",
             name: "profile",
-            component: Profile,
+            component: ()=>import("@/components/Profile.vue"),
             meta: {
                 requiresAuth:true
             }

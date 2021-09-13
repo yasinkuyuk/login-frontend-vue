@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <b-container >
     <p>
       {{ $t("signInSentence") }}
       <router-link to="/register">{{ $t("signUp") }}</router-link>
     </p>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login" id="test" class="mt-5">
       <div class="username">
         <div
           class="form-group"
           :class="{ 'form-group--error': $v.username.$error }"
         >
           <label class="form__label">{{ $t("username") }}</label>
-          <input class="form__input" v-model.trim="$v.username.$model" />
+          <input class="form__input mb-1" v-model.trim="$v.username.$model" />
         </div>
         <div class="error" v-if="!$v.username.minLength">
           {{ $t("username_length") }} {{ $v.username.$params.minLength.min }} {{ $t("letters") }}.
@@ -44,7 +44,7 @@
         {{ $t("sending") }}
       </p>
     </form>
-  </div>
+  </b-container>
 </template>
 <script>
 import { required, minLength } from "vuelidate/lib/validators";
@@ -126,21 +126,3 @@ a {
 }
 </style>
 
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
